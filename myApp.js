@@ -24,7 +24,7 @@ const createAndSavePerson = (done) => {
     if (error) {
       done(error)
     }
-    done(data)
+    done(null, data)
   });
 };
 
