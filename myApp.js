@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGO_URI, {
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
   age: Number,
-  favoriteFoods: [String]
+  favoriteFoods: [{ type: String }]
 })
 
 const Person = mongoose.model('Person', personSchema)
@@ -71,8 +71,12 @@ const findPersonById = (personId, done) => {
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
+  Person.update(personId, favoriteFoods.push(foodToAdd), (error, data) => {
+    if (error) {
+      done(error)
+    }
+    done(null, data)
+  })
 };
 
 const findAndUpdate = (personName, done) => {
