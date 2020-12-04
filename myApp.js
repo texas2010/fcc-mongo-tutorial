@@ -7,12 +7,12 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 
 const personSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+  name: { type: String, required: true },
   age: Number,
   favoriteFoods: [String]
 })
 
-const Person = mongoose.model("Person", personSchema)
+const Person = mongoose.model('Person', personSchema)
 
 const createAndSavePerson = (done) => {
   const newUser = new Person({
@@ -27,6 +27,11 @@ const createAndSavePerson = (done) => {
     done(null, data)
   });
 };
+
+const arrayOfPeople = [
+  { name: 'first', age: 34, favoriteFoods: ['salad', 'popcorn'] },
+  { name: 'second', age: 52, favoriteFoods: ['cheese', 'chicken'] },
+];
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, (error, data) => {
